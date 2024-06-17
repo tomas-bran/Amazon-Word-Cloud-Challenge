@@ -1,7 +1,7 @@
 import { fetchDescription } from "../service/amazonService.js";
 import { processDescription } from "../service/wordCloudService.js";
 import { isIDinCache } from "../utils/cache.js";
-import { isValidURL, parseURL } from "../utils/url.js"
+import {  parseURL } from "../utils/url.js"
 
 export class ProductService {
 
@@ -9,10 +9,10 @@ export class ProductService {
 
         //hacerlo el productService.js
     
-        if(!isValidURL(url))
-            return res.status(400).json({error: 'Invalid URL'});
+        /*if(!isValidURL(url))
+            return res.status(400).json({error: 'Invalid URL'});*/
     
-        //en service throwear el error
+    
         
         const productID = parseURL(url);
         
@@ -33,7 +33,21 @@ export class ProductService {
     }
 
 
+    topWordsController = (cant,res) => {
 
+        if(cant <= 0){
+            res.status(400).json({error : "Number negative or zero"});
+        }
+    
+        const topWords = TopWordsHeap(cant);
+    
+        /*if(topWords.length === 0)
+            res.status(404).json({error : "Too many words given"});*/
+    
+    
+        res.json(topWords).status(200);
+    }
 
 
 }
+

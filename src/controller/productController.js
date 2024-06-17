@@ -1,7 +1,7 @@
 
 import { Router } from "express";
 import { ProductService } from "../service/productService.js";
-import { topWordsController } from "./topWordsController.js";
+
 
 export const productRouter = Router();
 
