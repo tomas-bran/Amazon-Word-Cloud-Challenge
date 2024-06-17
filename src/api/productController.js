@@ -1,22 +1,25 @@
-import { fetchDescription } from "../services/amazonServices.js";
-import { isValidURL } from "../utils/url.js"
+import { fetchDescription } from "../services/amazonService.js";
+import { processDescription } from "../services/wordCloudService.js";
+import { isIDinCache } from "../utils/cache.js";
+import { isValidURL, parseURL } from "../utils/url.js"
 
 
 export const productController = async(url,res) => {
+
     if(!isValidURL(url))
         return res.status(400).json({error: 'Invalid URL'});
     
-    //realizar un get usando axios 
-    const description = await fetchDescription(url);
-
-    //aca haria la remove de las palabras exceptuadas de mi descrip
-    //hacer un json de excepciones con las palabras a eliminar o un vector con esas palabras
-    //y comparar entre ambos elementos y sacarlo
-
-    //el segundo filtrado seria removeDuplicates, eliminando las palabras duplicadas de mi descripcion
-    //teniendo la palabra con la cantidad de ocurrencias
-
+    const productID = parseURL(url);
     
+    if(!isIDinCache(productID))
+    {  
+        const description = await fetchDescription(productID);
 
-    res.send(description);
+        if(description.length > 0){
+            processDescription(description);
+
+        }
+    }
+    res.send("OK").status(200);
+    
 }
