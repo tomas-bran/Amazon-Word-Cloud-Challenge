@@ -1,4 +1,4 @@
-import { TopWordsHeap } from "../services/wordCloudService.js";
+import { TopWordsHeap } from "../service/wordCloudService.js";
 
 export const topWordsController = (cant,res) => {
 

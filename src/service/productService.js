@@ -1,3 +1,8 @@
+import { fetchDescription } from "../service/amazonService.js";
+import { processDescription } from "../service/wordCloudService.js";
+import { isIDinCache } from "../utils/cache.js";
+import { isValidURL, parseURL } from "../utils/url.js"
+
 export class ProductService {
 
     productController = async (url,res) => {

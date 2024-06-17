@@ -1,8 +1,7 @@
-/*
 import {Router} from "express"
-import { productRouter } from "../api/productController";
+import { productRouter } from "../controller/productController.js";
 
 
 export const router = Router();
 
-router.use("/", productRouter);*/
+router.use("/product", productRouter);
