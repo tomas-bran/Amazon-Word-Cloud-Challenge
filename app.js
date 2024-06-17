@@ -1,6 +1,7 @@
 import express from "express"
 import { productController } from "./src/api/productController.js";
 import 'dotenv/config.js';
+import { topWordsController } from "./src/api/topWordsController.js";
 
 const app = express();
 
@@ -11,7 +12,7 @@ app.use(express.urlencoded({extended : true}));
 const port = process.env.PORT ?? 8080
 
 app.get("/",(req,res)=>{
-    res.send("Hola").status(200);
+    topWordsController(req.query.TopWords,res);
 })
 
 app.post("/", async (req,res)=>{
