@@ -23,6 +23,6 @@ export class ProductService {
 
     const topWords = TopWordsHeap(cant);
 
-    return topWords;
+    return topWords.reverse();
   };
 }
