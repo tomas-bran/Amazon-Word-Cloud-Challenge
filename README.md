@@ -18,7 +18,7 @@ curl -X POST "http://localhost:8080/api/product?productUrl=http%3A%2F%2Fwww.amaz
 
 Alternativamente, puedes usar el script simulateRequests.sh proporcionado en la carpeta raíz del proyecto para simular solicitudes:
 
-./simulateRequests.sh localhost 8080 ProductURL 1
+./simulateRequests.sh localhost 8080 productURL 1
 
 ### 2. /GET
 
