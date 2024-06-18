@@ -1,43 +1,28 @@
 import { fetchDescription } from "../service/amazonService.js";
-import { processDescription ,TopWordsHeap} from "../service/wordCloudService.js";
+import {
+  processDescription,
+  TopWordsHeap,
+} from "../service/wordCloudService.js";
 
 import { isIDinCache } from "../utils/cache.js";
-import {  parseURL } from "../utils/url.js"
+import { parseURL } from "../utils/url.js";
 
 export class ProductService {
+  getDescriptionByID = async (url) => {
+    const productID = parseURL(url);
 
-    getDescriptionByID = async (url) => {
+    if (!isIDinCache(productID)) {
+      const description = await fetchDescription(productID);
 
-        const productID = parseURL(url);
-        
-        if(!isIDinCache(productID))
-        {  
-            const description = await fetchDescription(productID);
-    
-            if(description.length > 0)
-                processDescription(description);
-    
-            
-        }
-        
+      if (description.length > 0) processDescription(description);
     }
+  };
 
+  getNTopWords = (cant, res) => {
+    if (cant <= 0) res.status(400).json({ error: "Number negative or zero" });
 
-    getNTopWords = (cant,res) => {
+    const topWords = TopWordsHeap(cant);
 
-        if(cant <= 0){
-            res.status(400).json({error : "Number negative or zero"});
-        }
-    
-        const topWords = TopWordsHeap(cant);
-    
-        /*if(topWords.length === 0)
-            res.status(404).json({error : "Too many words given"});*/
-    
-    
-        return topWords;
-    }
-
-
+    return topWords;
+  };
 }
-
